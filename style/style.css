@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  background-color: #f6f9fe;
+  color: #486278;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+.container {
+  position: relative;
+  width: 90vw;
+  max-width: 1200px;
+}
+.header {
+  position: relative;
+  height: 150px;
+}
+.menu {
+  height: 50px;
+  background-color: #deeefb;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.menu > .container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.menu__item {
+  font-weight: 500;
+  min-width: 150px;
+  font-family: 'Roboto', sans-serif;
+}
+.footer {
+  position: relative;
+  margin-top: 2rem;
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  background-color: #eaf4fd;
+  align-items: center;
+  justify-content: center;
+}
+.footer .container {
+  text-align: right;
+}
+.footer__text {
+  display: block;
+  text-align: right;
+  margin-right: 2rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content > .container {
+  margin-top: 1rem;
+  background-color: white;
+  padding: 0 20px;
+  border-radius: 5px;
+}
+.article img {
+  margin: 10px;
+}
+.articles-list,
+.promo {
+  margin-top: 1.5rem;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  width: 100%;
+}
+.promo-content {
+  font-family: 'Roboto', sans-serif;
+  flex-grow: 1;
+  position: relative;
+}
+.promo-content > h4 {
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+.promo-content > ul {
+  padding: 0;
+  margin-left: 10px;
+  list-style-type: none;
+  width: 100%;
+  position: relative;
+}
+.promo-content > ul > li {
+  padding: 0;
+  display: block;
+  margin-bottom: 5px;
+}
+.articles-item {
+  position: relative;
+  width: 20%;
+}
+.articles-item__title {
+  font-size: 1.2rem;
+  margin: 0;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+.articles-item > ul {
+  list-style-type: none;
+  padding: 0;
+}
+.articles-item > ul > li {
+  margin-bottom: 0.5rem;
+}
+.articles-item > ul > li a {
+  color: #486278;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="row mr-0 mt-3">
+    <div class="col-4 col-xl-3">
+        <ul>
+            <li id="categories-toggle">Разделы</li>
+            <ul id="leftMenu"></ul>
+            <li><a href="#categoriesConfigurator">Редактор категорий</a></li>
+            <li><a href="#filesConfigurator">Менеджер файлов</a></li>
+        </ul>
+    </div>
+
+    <div class="col-8 col-xl-9 pr-0">
+
+        <section id="categoriesConfigurator">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th id="category-sort_by_name">Навазание категории</th>
+                    <th>Описание категории</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="categories_list">
+                </tbody>
+            </table>
+
+            <form action="#" id="addCategory">
+                <div class="row mr-0">
+                    <div class="col-12">
+                        <h5>Добавать новую категорию</h5>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" placeholder="Category name" name="categoryName"
+                               id="categoryName"
+                               title="Category name">
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" placeholder="Category description"
+                               name="categoryDescription"
+                               id="categoryDescription"
+                               title="Category description">
+                    </div>
+                    <div class="col-12">
+                        <input class="btn btn-success mt-3" type="Submit">
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="articleEdit">
+            <div class="pr-3">
+                <label for="article-category">Раздел</label>
+                <select class="form-control" id="article-category"></select>
+                <label for="article-title">Заголовок</label>
+                <input type="text" class="form-control" id="article-title">
+                <label for="article-title">Короткое описание</label>
+                <input type="text" class="form-control" id="article-description">
+                <label for="article-text">Текст</label>
+                <textarea class="form-control" id="article-text"></textarea>
+                <div class="form-check">
+                    <input type="checkbox" id="article-visible" class="form-check-input">
+                    <label for="article-visible">Видимость</label>
+                </div>
+                <input type="button" class="btn btn-success mt-3" id="article-send" value="Add article">
+            </div>
+            <div id="gallery">
+                <div class="mt-2 mr-0 row">
+                    <div class="col-2">
+                        <button class="btn btn-info" id="article-gallery-toggle">Gallery</button>
+                    </div>
+                    <form action="#" class="col-10 row mr-0" id="uploadFile" enctype="multipart/form-data">
+                        <div class="col-8">
+                            <input type="file" name="fileData" class="form-control-file">
+                            <input type="hidden" id="file-article-id" name="articleId">
+                        </div>
+                        <div class="col-4">
+                            <input type="Submit" class="btn ml-3 btn-success" value="Загрузить">
+                        </div>
+                    </form>
+                </div>
+                <div id="article-gallery">
+                </div>
+            </div>
+        </section>
+
+        <section id="articleList">
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="articleList-body">
+                    </tbody>
+                </table>
+                <button class="btn btn-success" id="add-article">Добавить статью</button>
+            </div>
+
+        </section>
+
+        <section id="filesConfigurator">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Article Id</th>
+                        <th>Article</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="filesList-body"></tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+
+<!-- CategoriesConfigurator Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="#" id="updateCategoryById">
+                <div class="modal-body row">
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="modal-category_name" name="category"
+                               title="Category name">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="modal-category_description" name="description"
+                               title="Category name">
+                    </div>
+                    <input type="hidden" id="modal-category_id" name="id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="Submit" class="btn btn-success" value="Save changes">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- FileConfigurator Modal -->
+<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="#" id="updateFileById">
+                <div class="modal-body row">
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="modal-file_article" name="article"
+                               title="Category name" placeholder="Id статьи">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="modal-file_description" name="description"
+                               title="Category name" placeholder="Описание файла">
+                    </div>
+                    <input type="hidden" id="modal-file_id" name="id">
+                    <input type="hidden" id="modal-file_name" name="filename">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="Submit" class="btn btn-success" value="Save changes">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/categoriesConfigurator.js"></script>
+<script src="js/filesConfigurator.js"></script>
+<script src="js/articleEdit.js"></script>
+<script src="js/articleList.js"></script>
+</body>
+</html>
