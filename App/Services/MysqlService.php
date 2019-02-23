@@ -16,21 +16,8 @@ class MysqlService
 
     public function __construct()
     {
-        $this->config = require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'mysql.php';
-        $dsn = 'mysql:host=' . $this->config['db_host'] .
-            ';port=' . $this->config['db_port'] .
-            ';dbname=' . $this->config['db_name'] .
-            ';charset=' . $this->config['char_set'] . ';';
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ];
-
-        try {
-            $this->pdo = new PDO($dsn, $this->config['mysql_user'], $this->config['mysql_password'], $options);
-        } catch (PDOException $err) {
-            echo $err->getMessage();
-        }
+        $db = MysqlConnection::instance();
+        $this->pdo = $db->getConnection();
     }
 
     public function addCategory($categoryName, $categoryDescription)

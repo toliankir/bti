@@ -9,9 +9,11 @@ function fillFileListTable() {
     }, (response) => {
         $filesListBody.html('');
         response.body.forEach((item) => {
+            const fileExtension = item.filename.split('.').pop();
+
             $filesListBody.append(
                 $('<tr></tr>')
-                    .append($(`<td>${item.filename}</td>`))
+                    .append($(`<td><img class='icon-file-configurator' src="${assetsLink}/fileicons/${fileExtension}.svg">${item.filename}</td>`))
                     .append($(`<td>${item.article}</td>`))
                     .append($(`<td>${item.title}</td>`))
                     .append($(`<td>${item.description}</td>`))

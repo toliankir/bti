@@ -1,3 +1,8 @@
+<?php
+
+use App\ViewHelpers\FooterHelper;
+
+?>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +17,9 @@
 </head>
 <body>
 <div class="header">
+    <div class="container">
+        <img src="assets/images/Kropyvnytskyi.png">
+    </div>
 </div>
 <div class="menu">
     <div class="container">
@@ -24,14 +32,18 @@
 <div class="content">
     <div class="container">
         <?php
-                echo $layoutContent;
+        echo $layoutContent;
         ?>
     </div>
 </div>
 
 <div class="footer">
     <div class="container">
-        <span class="footer__text">25006, м. Кропивницький, вул. Калініна, 12<br>(0522) 226901</span>
+<!--                <span class="footer__text">25006, м. Кропивницький, вул. Калініна, 12<br>(0522) 226901</span>-->
+        <?php
+        $footer = (new FooterHelper())->getData();
+        echo $footer['text'];
+        ?>
     </div>
 </div>
 </body>

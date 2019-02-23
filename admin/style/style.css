@@ -11,14 +11,14 @@ button {
     cursor: pointer;
 }
 
-
 #article-gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 .gallery__item {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 150px;
@@ -30,6 +30,7 @@ button {
     max-width: 150px;
     max-height: 150px;
 }
+
 .gallery__text {
 
 }
@@ -38,9 +39,41 @@ button {
     position: absolute;
     top: 5px;
     right: 5px;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s linear;
+}
+
+.gallery__edit {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s linear;
 }
 
 .gallery__item:hover > .gallery__delete {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.gallery__item:hover > .gallery__edit {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon-file-configurator {
+    /*float: left;*/
+    display: inline-block;
+    max-width: 25px;
+    max-height: 25px;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
 }

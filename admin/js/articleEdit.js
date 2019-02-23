@@ -97,6 +97,13 @@ function fillGallery() {
                         }, () => {
                             fillGallery();
                         });
+                    }))
+                .append($(`<button class='btn btn-success btn-sm gallery__edit' data-toggle="modal" data-target="#fileModal">Edit</button>`)
+                    .on('click', () => {
+                        $modalFileArticle.val(file.article);
+                        $modalFileDescription.val(file.description);
+                        $modalFileId.val(file.id === '' ? 0 : file.id);
+                        $modalFilename.val(file.filename);
                     }));
             $articleGallery.append($container);
         });
@@ -136,7 +143,7 @@ function setArticleEditListeners() {
     });
 
     $articleGalleryToggle.on('click', () => {
-        $articleGallery.toggle();
+        $articleGallery.toggle(300);
     });
 }
 
@@ -144,35 +151,6 @@ function articleEdit() {
     fillCategorySelect();
     getArticleById();
     setArticleEditListeners();
-
     fillGallery();
-    // ajaxRequest('GET', {
-    //     action: 'getArticlesWOTByCategory',
-    //     category: 'бв'
-    // }, (data) => {
-    //     $('#testdiv').html(data.body.text);
-    // });
-
-    // $('#testbtn').on('click', () => {
-    //     // tinymce.activeEditor.execCommand('mceInsertContent', false, '<img src="https://overclockers.ru/assets/logo.png">');
-    //     tinymce.activeEditor.setContent('<span>some</span> html');
-    // });
-
-    //
-    // $('#uploadFile').on('submit', (e) => {
-    //     e.preventDefault();
-    //     const test = new FormData(e.target);
-    //     test.append('action', 'test');
-    //     $.ajax({
-    //         url: apiUrl,
-    //         processData: false,
-    //         contentType: false,
-    //         type: 'POST',
-    //         data: test
-    //     }).fail((jqXHR) => {
-    //         console.log(jqXHR);
-    //     }).done((data) => {
-    //         console.log(data);
-    //     });
-    // });
+    $articleGallery.hide();
 }

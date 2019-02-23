@@ -43,11 +43,11 @@
 
 <div class="row mr-0 mt-3">
     <div class="col-4 col-xl-3">
-        <ul>
-            <li id="categories-toggle">Разделы</li>
-            <ul id="leftMenu"></ul>
-            <li><a href="#categoriesConfigurator">Редактор категорий</a></li>
-            <li><a href="#filesConfigurator">Менеджер файлов</a></li>
+        <ul class="list-group">
+            <li class="list-group-item" id="categories-toggle">Разделы</li>
+            <ul class="list-group-item" id="leftMenu"></ul>
+            <li class="list-group-item"><a href="#categoriesConfigurator">Редактор категорий</a></li>
+            <li class="list-group-item"><a href="#filesConfigurator">Менеджер файлов</a></li>
         </ul>
     </div>
 
@@ -121,7 +121,9 @@
                         </div>
                     </form>
                 </div>
-                <div id="article-gallery">
+                <div class="article-gallery">
+                    <div id="article-gallery">
+                    </div>
                 </div>
             </div>
         </section>
@@ -132,10 +134,10 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>Title</th>
-                        <th>Description</th>
+                        <th class="w-40">Title</th>
+                        <th class="w-40">Description</th>
                         <th></th>
-                        <th></th>
+                        <th><div  style="width: 140px;"></div></th>
                     </tr>
                     </thead>
                     <tbody id="articleList-body">
@@ -149,14 +151,14 @@
         <section id="filesConfigurator">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>File</th>
-                        <th>Article Id</th>
-                        <th>Article</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>File</th>
+                    <th>Article Id</th>
+                    <th>Article</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody id="filesList-body"></tbody>
             </table>

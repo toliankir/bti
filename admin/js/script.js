@@ -33,7 +33,7 @@ function leftMenuInit() {
         $leftMenu.html('');
         allCategoriesData = responseData.body;
         allCategoriesData.sort((a, b) => a.category.localeCompare(b.category)).forEach((element) => {
-            $leftMenu.append(`<li><a href="#articleList/${element.id}">${element.category}</a></li>`)
+            $leftMenu.append(`<li class="list-group-item"><a href="#articleList/${element.id}">${element.category}</a></li>`)
         });
     });
 }
@@ -80,12 +80,22 @@ $(document).ready(function () {
         selector: "#article-text",
         width: '100%',
         height: 300,
-        plugins: "link table",
+        plugins: "link table lists",
         statusbar: true,
         menubar: true,
         relative_urls: false,
         convert_urls: false,
-        toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        toolbar: "numlist bullist",
+        // toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        // style_formats : [
+        //     {title : 'Parahraph', inline : 'p'},
+        //     {title : 'Bold text', inline : 'b'},
+        //     {title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+        //     {title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+        //     {title : 'Example 1', inline : 'span', classes : 'example1'},
+        //     {title : 'Example 2', inline : 'span', classes : 'example2'},
+        //     {title : 'Span', inline : 'span'}
+        // ]
     });
 
     // Prevent bootstrap dialog from blocking focusin
