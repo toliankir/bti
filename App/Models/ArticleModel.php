@@ -7,18 +7,25 @@ use App\Services\MysqlService;
 
 class ArticleModel extends Model
 {
-    private $mysqlService, $articleId;
+    private $mysqlService, $article;
+
     public function __construct()
     {
         $this->mysqlService = new MysqlService();
     }
 
-    public function setArticleId($id) {
-        $this->articleId = $id;
+    public function setArticleId($id)
+    {
+        $this->article = $this->mysqlService->getArticleById($id);
+    }
+
+    public function setArticleTitle($title)
+    {
+        $this->article = $this->mysqlService->getArticleByTitle(urldecode($title));
     }
 
     public function getData()
     {
-        return ['article' => $this->mysqlService->getArticleById($this->articleId)];
+        return ['article' => $this->article];
     }
 }

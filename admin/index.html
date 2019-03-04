@@ -46,12 +46,13 @@
         <ul class="list-group">
             <li class="list-group-item" id="categories-toggle">Разделы</li>
             <ul class="list-group-item" id="leftMenu"></ul>
+            <li class="list-group-item"><a href="#articleList/noCategory">Без категорий</a></li>
             <li class="list-group-item"><a href="#categoriesConfigurator">Редактор категорий</a></li>
             <li class="list-group-item"><a href="#filesConfigurator">Менеджер файлов</a></li>
         </ul>
     </div>
 
-    <div class="col-8 col-xl-9 pr-0">
+    <div class="col-8 col-xl-9 pr-0 pl-0">
 
         <section id="categoriesConfigurator">
             <table class="table">
@@ -104,6 +105,8 @@
                     <input type="checkbox" id="article-visible" class="form-check-input">
                     <label for="article-visible">Видимость</label>
                 </div>
+                <label for="article-title">Дополнительные параметры</label>
+                <textarea class="form-control" id="article-ext"></textarea>
                 <input type="button" class="btn btn-success mt-3" id="article-send" value="Add article">
             </div>
             <div id="gallery">
@@ -129,7 +132,7 @@
         </section>
 
         <section id="articleList">
-            <div>
+            <!--<div>-->
                 <table class="table">
                     <thead>
                     <tr>
@@ -137,15 +140,24 @@
                         <th class="w-40">Title</th>
                         <th class="w-40">Description</th>
                         <th></th>
-                        <th><div  style="width: 140px;"></div></th>
+                        <th>
+                            <div style="width: 140px;"></div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody id="articleList-body">
                     </tbody>
                 </table>
-                <button class="btn btn-success" id="add-article">Добавить статью</button>
-            </div>
+                <div class="ml-1 mt-1 row w-95">
+                    <button class="btn btn-success" id="add-article">Добавить статью</button>
+                    <button class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
+                    <input type="text" class="form-control ml-1 w-5" id="link-id" placeholder="id статьи">
 
+                    <button class="btn btn-info ml-4" id="add-external-link">Добавить внешнюю ссылку ссылку</button>
+                    <input type="text" class="form-control ml-1 w-5" id="external-link" placeholder="id статьи">
+                </div>
+
+            <!--</div>-->
         </section>
 
         <section id="filesConfigurator">

@@ -72,7 +72,7 @@ class RequestHandler
         if ($_POST['id'] === 'new') {
             $this->service->addArticle($_POST['categoryId'], $_POST['title'],
                 $_POST['description'], $_POST['text'],
-                $_POST['visible'] === 'true' ? true : false);
+                $_POST['visible'] === 'true' ? true : false, $_POST['ext']);
             ResponseCreator::responseCreate(200, 'Article add', [
                 'Article title' => $_POST['title']]);
         }
@@ -80,7 +80,7 @@ class RequestHandler
         // If article update
         $this->service->updateArticle($_POST['id'], $_POST['categoryId'], $_POST['title'],
             $_POST['description'], $_POST['text'],
-            $_POST['visible'] === 'true' ? true : false);
+            $_POST['visible'] === 'true' ? true : false, $_POST['ext']);
         ResponseCreator::responseCreate(200, 'Article update', [
             'Article title' => $_POST['title']]);
     }
@@ -90,7 +90,6 @@ class RequestHandler
         if (empty($_GET['id'])) {
             ResponseCreator::responseCreate(422, 'Empty article id');
         }
-
         $articles = $this->service->getArticleById($_GET['id']);
         if (!$articles) {
             ResponseCreator::responseCreate(404, 'Article with id - ' . $_GET['id'] . ' don\'t  found');
@@ -120,6 +119,11 @@ class RequestHandler
         if (empty($_GET['category'])) {
             ResponseCreator::responseCreate(422, 'Empty category id');
         }
+
+        if ($_GET['category'] === 'noCategory') {
+            ResponseCreator::responseCreate(200, 'OK', $articles = $this->service->getArticlesWoCategory());
+        }
+
         ResponseCreator::responseCreate(200, 'OK', $this->service->getArticlesCategoryId($_GET['category']));
     }
 
@@ -211,7 +215,8 @@ class RequestHandler
         ResponseCreator::responseCreate(200, 'Ok', $result);
     }
 
-    public function updateFileById(){
+    public function updateFileById()
+    {
         if ($_POST['id'] === '0') {
             $this->service->addFile($_POST['article'], $_POST['filename'], $_POST['description']);
             ResponseCreator::responseCreate(200, 'Ok', ['Add to base' => $_POST['filename']]);
@@ -221,8 +226,50 @@ class RequestHandler
             $this->service->updateFile($_POST['id'], $_POST['article'], $_POST['description']);
             ResponseCreator::responseCreate(200, 'Ok', ['File update in base' => $_POST['filename']]);
         }
-
-
     }
 
+    public function addLinkToArticle()
+    {
+        if (empty($_GET['categoryId'])) {
+            ResponseCreator::responseCreate(200, 'Category id empty');
+        }
+        if (empty($_GET['link'])) {
+            ResponseCreator::responseCreate(200, 'Link id empty');
+        }
+        $this->service->addLinkToArticle($_GET['categoryId'], $_GET['link']);
+        ResponseCreator::responseCreate(200, 'Ok', ['Link to article add' => $_GET['link']]);
+    }
+
+    public function addExternalLink()
+    {
+        if (empty($_GET['categoryId'])) {
+            ResponseCreator::responseCreate(200, 'Category id empty');
+        }
+        if (empty($_GET['link'])) {
+            ResponseCreator::responseCreate(200, 'Link id empty');
+        }
+        $this->service->addExternalLink($_GET['categoryId'], $_GET['link']);
+        ResponseCreator::responseCreate(200, 'Ok', ['Link to article add' => $_GET['link']]);
+    }
+
+    public function updateExtProperty()
+    {
+        if (empty($_GET['articleId'])) {
+            ResponseCreator::responseCreate(200, 'Article id empty');
+        }
+        if (empty($_GET['key'])) {
+            ResponseCreator::responseCreate(200, 'Key empty');
+        }
+        if (empty($_GET['value'])) {
+            ResponseCreator::responseCreate(200, 'Value empty');
+        }
+        $article = $this->service->getArticleById($_GET['articleId']);
+        $jsonExt = json_decode($article['ext'], true);
+        if (!is_array($jsonExt)) {
+            $jsonExt = [];
+        }
+        $jsonExt[$_GET['key']] = $_GET['value'];
+        $this->service->updateArticleExt($_GET['articleId'], json_encode($jsonExt));
+        ResponseCreator::responseCreate(200, 'Ok', ['Ext changed' => $_GET['articleId']]);
+    }
 }

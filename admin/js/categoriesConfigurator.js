@@ -1,5 +1,5 @@
 const $categoryTable = $('#categories_list');
-const $inputCategoryName = $('#category_name');
+const $inputCategoryName = $('#categoryName');
 const $modalCategoryName = $('#modal-category_name');
 const $modalCategoryDescription = $('#modal-category_description');
 const $modalCategoryId = $('#modal-category_id');
@@ -23,6 +23,7 @@ function showAllCategories(allCategoriesData) {
             .css({'cursor': 'pointer'})
             .on('click', (clickedElement) => {
                 const $clickElement = $(clickedElement.target);
+                console.log($clickElement.text());
                 $inputCategoryName.val($clickElement.text() + '\\');
             });
 

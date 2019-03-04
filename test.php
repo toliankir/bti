@@ -1,10 +1,12 @@
 <?php 
-if (!headers_sent()) {
-    header('Access-Control-Allow-Origin: *');
-}
-
-echo ("{
-  \"heroesUrl\": \"api/heroes\",
-  \"textfile\": \"assets/textfile.txt\"
+$str = ("{
+	\"submenuLink\": \"../articles/Тарифи для бюджетних та інших споживачів\"
 }");
-?>
+
+$json = json_decode($str);
+
+
+var_dump($json);
+
+
+

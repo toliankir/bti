@@ -1,66 +1,69 @@
-<div class="promo">
-    <img src="/assets/images/1.png">
-    <div class="promo-content">
-        <h4>
-            Технічна інвентаризація потрібна при:
-        </h4>
-        <ul>
-            <li>Зміна властника</li>
-            <li>Зміна технічного стану</li>
-            <li>Реконструкція, перепланування</li>
-            <li>Розділ або обєднання майна</li>
-            <li>Прийняття в есплуатацію</li>
-        </ul>
+<?php
+
+use App\ViewHelpers\ArticleContentHelper;
+use App\ViewHelpers\NewsBlockHelper;
+use App\ViewHelpers\NewsHelper;
+use App\ViewHelpers\SliderHelper;
+
+
+?>
+
+<div class="promo part ">
+    <div class="slider">
+        <?php
+
+        foreach ((new SliderHelper())->getData() as $value) {
+            echo('<div class="slider-item"><img src="../assets/promo/' . $value['filename'] . '"><div class="promo-text"><p>' .
+                $value['description'] . '</p></div></div>');
+        }
+        ?>
+    </div>
+    <div class="slider-control">
+
     </div>
 </div>
 
-<div class="articles-list">
-    <div class="articles-item">
-        <h5 class="articles-item__title">
-            Оформлення права власності
-        </h5>
-        <ul>
+<div class="areas part">
+    <div class="container">
+        <h3>Останні новини</h3>
+        <div class="news-items">
             <?php
-            foreach ($articles1 as $item) {
-                echo '<li>' . $item['title'] . '</li>';
+            $articles = (new NewsHelper())->getData();
+            for ($i = 0; $i < 3; $i++) {
+                $extJson = json_decode($articles[$i]['ext'], true);
+                $imageLink = '';
+                if ($extJson['mainImage'] !== '') {
+                    $imageLink = $extJson['mainImage'];
+                }
+                echo '<div class="area-item"><div class="area-item__content">';
+//                echo '<p class="area-item__title">'.$articles[$i]['title'].'</p>';
+                echo '<p class="area-item__description"><a href="../article/' . $articles[$i]['id'] . '">' . $articles[$i]['title'] . '</a></p>';
+                echo '<i class="fas fa-arrow-circle-right"></i></div>';
+                echo '<div class="area-item__image">';
+                echo '<img src="../assets/upload/' . $extJson['mainImage'] . '">';
+                echo '</div></div>';
             }
             ?>
-        </ul>
-    </div>
-    <div class="articles-item">
-        <h5 class="articles-item__title">
-            Оформлення будівництва
-        </h5>
-        <ul>
-            <?php
-            foreach ($articles1 as $item) {
-                echo '<li>' . $item['title'] . '</li>';
-            }
-            ?>
-        </ul>
-    </div>
-    <div class="articles-item">
-        <h5 class="articles-item__title">
-            Операції з землею
-        </h5>
-        <ul>
-            <?php
-            foreach ($articles2 as $item) {
-                echo '<li><a href="article/' . $item['id'] . '">' . $item['title'] . '</a></li>';
-            }
-            ?>
-        </ul>
-    </div>
-    <div class="articles-item">
-        <h5 class="articles-item__title">
-            Перепланування та введеня в експлуатацію
-        </h5>
-        <ul>
-            <?php
-            foreach ($articles1 as $item) {
-                echo '<li>' . $item['title'] . '</li>';
-            }
-            ?>
-        </ul>
+
+        </div>
+        <div class="show-all-articles">Усі новини</div>
     </div>
 </div>
+
+<div class="content part">
+    <div class="container">
+        <div class="article w-75">
+            <?php
+            echo ((new ArticleContentHelper('Головне'))->getData())['text'];
+            ?>
+        </div>
+        <div class="right-column w-25">
+            <?php
+            echo (new NewsBlockHelper())->getData();
+            ?>
+        </div>
+
+
+    </div>
+</div>
+

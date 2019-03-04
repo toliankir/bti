@@ -3,6 +3,7 @@ const $articleTitle = $('#article-title');
 const $articleSend = $('#article-send');
 const $articleDescription = $('#article-description');
 const $articleVisible = $('#article-visible');
+const $articleExt = $('#article-ext');
 
 const $gallery = $('#gallery');
 const $articleGallery = $('#article-gallery');
@@ -12,6 +13,7 @@ const $fileArticleId = $('#file-article-id');
 let articleData = null;
 let intervalTinymce;
 let articleEditListeners = false;
+let articleCategories = [];
 
 function fillCategorySelect(id = null) {
     ajaxRequest('GET', {
@@ -80,32 +82,48 @@ function fillGallery() {
             const thumbLink = isImage ? link : `${assetsLink}/fileicons/${fileExtension}.svg`;
 
             $container
-                .append($(`<img class='gallery__img' src='${thumbLink}'>`)
-                    .on('click', () => {
-                        if (isImage) {
-                            tinymce.activeEditor.execCommand('mceInsertContent', false, `<img src='${link}'>`);
-                        } else {
-                            tinymce.activeEditor.execCommand('mceInsertContent', false, `<a href='${link}'>${file.filename}</a>`);
-                        }
-                    }))
-                .append(`<span class='gallery__text'>${file.filename}</span>`)
-                .append($(`<button class='btn btn-danger btn-sm gallery__delete'>Delete</button>`)
-                    .on('click', () => {
-                        ajaxRequest('GET', {
-                            action: 'deleteFile',
-                            file: file.filename
-                        }, () => {
-                            fillGallery();
-                        });
-                    }))
-                .append($(`<button class='btn btn-success btn-sm gallery__edit' data-toggle="modal" data-target="#fileModal">Edit</button>`)
-                    .on('click', () => {
-                        $modalFileArticle.val(file.article);
-                        $modalFileDescription.val(file.description);
-                        $modalFileId.val(file.id === '' ? 0 : file.id);
-                        $modalFilename.val(file.filename);
-                    }));
+                .append($(`<img class='gallery__img' src='${thumbLink}'>`))
+                .append($('<div class="gallery__menu"></div>')
+                    .append($('<a>Дбавить в текст</a>')
+                        .on('click', () => {
+                            if (isImage) {
+                                tinymce.activeEditor.execCommand('mceInsertContent', false, `<img src='${link}'>`);
+                            } else {
+                                tinymce.activeEditor.execCommand('mceInsertContent', false, `<a href='${link}'>${file.filename}</a>`);
+                            }
+                        }))
+                    .append($('<a data-toggle="modal" data-target="#fileModal">Редактировать</a>')
+                        .on('click', () => {
+                            $modalFileArticle.val(file.article);
+                            $modalFileDescription.val(file.description);
+                            $modalFileId.val(file.id === '' ? 0 : file.id);
+                            $modalFilename.val(file.filename);
+                        }))
+                    .append($('<a>Сделать основной</a>')
+                        .on('click', () => {
+                            ajaxRequest('GET', {
+                                action: 'updateExtProperty',
+                                articleId: articleData.id,
+                                key: 'mainImage',
+                                value: file.filename
+                            }, () => {
+                                getArticleById();
+                            });
+                        }))
+                    .append($('<a>Удалить</a>')
+                        .on('click', () => {
+                            ajaxRequest('GET', {
+                                action: 'deleteFile',
+                                file: file.filename
+                            }, () => {
+                                fillGallery();
+                            });
+                        })));
+
             $articleGallery.append($container);
+
+            // $($container.find('.gallery__menu')).css('top', $container.height() + 5);
+            // console.log($container.width());
         });
     });
 
@@ -114,6 +132,7 @@ function fillGallery() {
 function setDataToForm(data) {
     $articleTitle.val(data.title);
     $articleDescription.val(data.description);
+    $articleExt.val(data.ext);
     $articleVisible.prop('checked', data.visible !== '0');
     intervalTinymce = setInterval(() => {
         if (typeof tinymce.activeEditor.contentDocument !== "undefined") {
@@ -136,7 +155,8 @@ function setArticleEditListeners() {
             categoryId: $articleCategory.val(),
             visible: $articleVisible.is(':checked'),
             description: $articleDescription.val(),
-            text: tinymce.activeEditor.getContent()
+            text: tinymce.activeEditor.getContent(),
+            ext: $articleExt.val(),
         }, () => {
             window.location.hash = 'articleList/' + $articleCategory.val();
         });
@@ -145,6 +165,8 @@ function setArticleEditListeners() {
     $articleGalleryToggle.on('click', () => {
         $articleGallery.toggle(300);
     });
+
+
 }
 
 function articleEdit() {
@@ -152,5 +174,5 @@ function articleEdit() {
     getArticleById();
     setArticleEditListeners();
     fillGallery();
-    $articleGallery.hide();
+    // $articleGallery.hide();
 }

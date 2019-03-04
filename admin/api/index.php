@@ -1,9 +1,5 @@
 <?php
 define('ROOT_DIR', dirname(__DIR__, 2));
-//require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'MysqlService.php';
-//require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Services' . DIRECTORY_SEPARATOR . 'FsService.php';
-//require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'RequestHandler.php';
-//require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'ResponseCreator.php';
 
 spl_autoload_register(function ($className) {
     $filePath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';

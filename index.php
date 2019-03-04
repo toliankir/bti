@@ -1,6 +1,6 @@
 <?php
 define('ROOT_DIR', __DIR__);
-
+define('IMAGE_URL_PATH', '../');
 spl_autoload_register(function ($className) {
     $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
     if (file_exists($filePath)) {
@@ -19,6 +19,7 @@ if (empty($route[1])) {
 }
 
 $controller = '\\App\\Controllers\\' . ucfirst($route[1]) . 'Controller';
+
 if (class_exists($controller)) {
     $test = new $controller($route);
     $test->action_index();

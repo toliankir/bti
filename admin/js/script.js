@@ -79,13 +79,13 @@ $(document).ready(function () {
     tinymce.init({
         selector: "#article-text",
         width: '100%',
-        height: 300,
-        plugins: "link table lists",
+        height: 500,
+        plugins: "link table lists hr",
         statusbar: true,
         menubar: true,
         relative_urls: false,
         convert_urls: false,
-        toolbar: "numlist bullist",
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect link image | numlist bullist",
         // toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
         // style_formats : [
         //     {title : 'Parahraph', inline : 'p'},

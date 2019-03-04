@@ -1,17 +1,12 @@
 const $articleListBody = $('#articleList-body');
 const $addArticle = $('#add-article');
+const $addLink = $('#add-link');
+const $linkId = $('#link-id');
+const $addExternalLink = $('#add-external-link');
+const $externalLink = $('#external-link');
+
 let articleListListeners = false;
 let articles;
-
-function addArticleListListeners() {
-    if (articleListListeners) {
-        return;
-    }
-    articleListListeners = true;
-    $addArticle.on('click', () => {
-        window.location.hash = 'articleEdit/' + route[1];
-    });
-}
 
 function fillArticleList() {
     if (route[1]) {
@@ -50,6 +45,42 @@ function fillArticleList() {
     }
 }
 
+function addArticleListListeners() {
+    if (articleListListeners) {
+        return;
+    }
+    articleListListeners = true;
+    $addArticle.on('click', () => {
+        window.location.hash = 'articleEdit/' + route[1];
+    });
+
+    $addLink.on('click', () => {
+        if ($linkId.val() === '') {
+            return;
+        }
+        ajaxRequest('GET', {
+            action: 'addLinkToArticle',
+            categoryId: route[1],
+            link: $linkId.val()
+        }, () =>{
+            fillArticleList();
+        });
+    });
+
+    $addExternalLink.on('click', () => {
+        if ($externalLink.val() === '') {
+            return;
+        }
+        ajaxRequest('GET', {
+            action: 'addExternalLink',
+            categoryId: route[1],
+            link: $externalLink.val()
+        }, () =>{
+            fillArticleList();
+        });
+    });
+
+}
 function articleList() {
     addArticleListListeners();
     fillArticleList();
