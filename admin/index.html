@@ -36,12 +36,15 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
+            <li class="nav-item">
+                <a id="logout" class="nav-link">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>
 
 
-<div class="row mr-0 mt-3">
+<div id="main-container" class="row mr-0 mt-3">
     <div class="col-4 col-xl-3">
         <ul class="list-group">
             <li class="list-group-item" id="categories-toggle">Разделы</li>
@@ -133,29 +136,29 @@
 
         <section id="articleList">
             <!--<div>-->
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th class="w-40">Title</th>
-                        <th class="w-40">Description</th>
-                        <th></th>
-                        <th>
-                            <div style="width: 140px;"></div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody id="articleList-body">
-                    </tbody>
-                </table>
-                <div class="ml-1 mt-1 row w-95">
-                    <button class="btn btn-success" id="add-article">Добавить статью</button>
-                    <button class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
-                    <input type="text" class="form-control ml-1 w-5" id="link-id" placeholder="id статьи">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th class="w-40">Title</th>
+                    <th class="w-40">Description</th>
+                    <th></th>
+                    <th>
+                        <div style="width: 140px;"></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="articleList-body">
+                </tbody>
+            </table>
+            <div class="ml-1 mt-1 row w-95">
+                <button class="btn btn-success" id="add-article">Добавить статью</button>
+                <button class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
+                <input type="text" class="form-control ml-1 w-10" id="link-id" placeholder="id статьи">
 
-                    <button class="btn btn-info ml-4" id="add-external-link">Добавить внешнюю ссылку ссылку</button>
-                    <input type="text" class="form-control ml-1 w-5" id="external-link" placeholder="id статьи">
-                </div>
+                <button class="btn btn-info ml-4" id="add-category-link">Добавить внешнюю ссылку</button>
+                <input type="text" class="form-control ml-1 w-10" id="category-link" placeholder="link">
+            </div>
 
             <!--</div>-->
         </section>
@@ -175,6 +178,16 @@
                 <tbody id="filesList-body"></tbody>
             </table>
         </section>
+
+        <section id="loginSection" >
+            <div class="w-30 d-flex flex-column align-items-center">
+                <h3>Login</h3>
+                <input type="text" class="form-control" id="loginField" title="login" placeholder="Login">
+                <input type="text" class="form-control mt-1" id="passwordField" title="password" placeholder="Password">
+                <button id="login" class="btn btn-success mt-1 w-95">Login</button>
+            </div>
+        </section>
+
     </div>
 </div>
 
@@ -240,5 +253,6 @@
 <script src="js/filesConfigurator.js"></script>
 <script src="js/articleEdit.js"></script>
 <script src="js/articleList.js"></script>
+<script src="js/loginSection.js"></script>
 </body>
 </html>

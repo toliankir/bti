@@ -2,8 +2,8 @@ const $articleListBody = $('#articleList-body');
 const $addArticle = $('#add-article');
 const $addLink = $('#add-link');
 const $linkId = $('#link-id');
-const $addExternalLink = $('#add-external-link');
-const $externalLink = $('#external-link');
+const $addCategoryLink = $('#add-category-link');
+const $categoryLink = $('#category-link');
 
 let articleListListeners = false;
 let articles;
@@ -35,7 +35,26 @@ function fillArticleList() {
                     .append(`<td>${article.id}</td>`)
                     .append(`<td>${article.title}</td>`)
                     .append(`<td>${article.description}</td>`)
-                    .append('<td><b>'+ (article.visible === '1' ? '+' : '-') +'</b></td>')
+                    // .append('<td><b>'+ (article.visible === '1' ? '+' : '-') +'</b></td>')
+                    .append($('<td></td>')
+                        .append($('<span>Вниз</i></span>')
+                            .on('click', () => {
+                                ajaxRequest('GET', {
+                                    action: 'articleDown',
+                                    id: article.id
+                                }, () => {
+                                    fillArticleList();
+                                });
+                            }))
+                        .append($('<span>Вверх</span>')
+                            .on('click', () => {
+                                ajaxRequest('GET', {
+                                    action: 'articleUp',
+                                    id: article.id
+                                }, () => {
+                                    fillArticleList();
+                                });
+                            })))
                     .append($('<td></td>')
                         .append($btnEdit)
                         .append($btnDelete));
@@ -67,14 +86,14 @@ function addArticleListListeners() {
         });
     });
 
-    $addExternalLink.on('click', () => {
-        if ($externalLink.val() === '') {
+    $addCategoryLink.on('click', () => {
+        if ($categoryLink.val() === '') {
             return;
         }
         ajaxRequest('GET', {
-            action: 'addExternalLink',
+            action: 'addCategoryLink',
             categoryId: route[1],
-            link: $externalLink.val()
+            link: $categoryLink.val()
         }, () =>{
             fillArticleList();
         });

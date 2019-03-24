@@ -1,4 +1,4 @@
-const $headerMenu = $('.header-menu');
+// const $headerMenu = $('.header-menu');
 
 const $slider = $('.slider');
 const $sliderControl = $('.slider-control');
@@ -9,35 +9,34 @@ let currentSlide = 0;
 
 
 $(document).ready(() => {
-    $headerMenu.find('.menu-item').each((id, el) => {
-        const $element = $(el);
-        const $subMenuElemet = $(el).children('.sub-menu-element');
-        if ($subMenuElemet.length === 0 || $(window).width() < 400) {
-            return;
-        }
-
-        $element.on('mouseenter', () => {
-            $subMenuElemet
-                .css('left', -1)
-                .css('top', $element.height())
-                .show();
-        });
-
-        $element.on('mouseleave', () => {
-            $subMenuElemet.hide();
-        });
-    });
+    // $headerMenu.find('.menu-item').each((id, el) => {
+    //     const $element = $(el);
+    //     const $subMenuElemet = $(el).children('.sub-menu-element');
+    //     if ($subMenuElemet.length === 0 || $(window).width() < 400) {
+    //         return;
+    //     }
+    //
+    //     $element.on('mouseenter', () => {
+    //         $subMenuElemet
+    //             .css('left', -1)
+    //             .css('top', $element.height())
+    //             .show();
+    //     });
+    //
+    //     $element.on('mouseleave', () => {
+    //         $subMenuElemet.hide();
+    //     });
+    // });
 
     sliderInit();
 });
 
 function sliderInit() {
     $sliders = $(sliderItemClass);
-    $sliders.each((ind, element) => {
-        $sliderControl.append($('<i class="fas fa-dot-circle control"></i>')
+    $sliders.each((ind) => {
+        $sliderControl.append($('<i class="far fa-dot-circle control"></i>')
             .on('mouseenter', () => {
-                currentSlide = ind;
-                setSlide(currentSlide);
+                setSlide(ind);
                 mouseOnSlideControl = true;
             })
             .on('mouseleave', () => {
@@ -46,7 +45,7 @@ function sliderInit() {
     });
     currentSlide = 0;
     $slider.html($sliders[currentSlide]);
-    setInterval( () => {
+    setInterval(() => {
         if (mouseOnSlideControl) {
             return;
         }
@@ -62,9 +61,15 @@ function nextSlide() {
 }
 
 function setSlide(slideId) {
+
+    if (slideId === currentSlide) {
+        return;
+    }
     const $slide = $($sliders[slideId]);
+    currentSlide = slideId;
     $slider.append($slide.css('opacity', 0));
     $slide.animate({'opacity': 1}, 1000);
+
 }
 
 

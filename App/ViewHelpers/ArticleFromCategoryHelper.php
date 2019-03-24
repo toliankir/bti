@@ -7,19 +7,19 @@ use App\Core\ViewHelper;
 use App\Services\Helper;
 use App\Services\MysqlService;
 
-class NewsHelper extends ViewHelper
+class ArticleFromCategoryHelper extends ViewHelper
 {
-    private $service, $categories;
+    private $service, $category;
 
-    public function __construct($categories)
+    public function __construct($category)
     {
-        $this->categories = $categories;
+        $this->category = $category;
         $this->service = new MysqlService();
     }
 
-    public function getData($quantity=5)
+    public function getData()
     {
-        $response = $this->service->getArticlesByCategories($this->categories, $quantity);
+        $response = $this->service->getArticlesCategoryId($this->category);
         $handledArticles = [];
 
         foreach ($response as $article) {

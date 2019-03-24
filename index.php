@@ -17,12 +17,11 @@ $route = explode('/', preg_replace('/[?].*$/','',$_SERVER['REQUEST_URI']));
 if (empty($route[1])) {
     $route[1] = 'default';
 }
-
 $controller = '\\App\\Controllers\\' . ucfirst($route[1]) . 'Controller';
 
 if (class_exists($controller)) {
-    $test = new $controller($route);
-    $test->action_index();
+    $controller = new $controller($route);
+    $controller->action_index();
     die();
 }
 (new NotFoundController())->action_index();

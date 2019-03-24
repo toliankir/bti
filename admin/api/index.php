@@ -1,4 +1,5 @@
 <?php
+session_start();
 define('ROOT_DIR', dirname(__DIR__, 2));
 
 spl_autoload_register(function ($className) {
@@ -11,6 +12,21 @@ spl_autoload_register(function ($className) {
 use \App\{
     Services\MysqlService, Admin\RequestHandler, Admin\ResponseCreator, Services\FsService
 };
+
+if (isset($_GET['login'],$_GET['password'])  &&
+    ($_GET['login'] === 'admin' && $_GET['password'] === 'koo')) {
+
+    $_SESSION['login'] = $_GET['login'];
+    ResponseCreator::responseCreate(200, 'Login success');
+}
+
+if (isset($_GET['logout'])) {
+    unset($_SESSION['login']);
+}
+
+if (!isset($_SESSION['login'])) {
+    ResponseCreator::responseCreate(403, 'Access denied');
+}
 
 
 $mysqlService = new MysqlService();

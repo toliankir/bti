@@ -5,6 +5,10 @@ const imageFormat = ['gif', 'png', 'jpg', 'jpeg', 'svg'];
 
 const $categoriesToggle = $('#categories-toggle');
 
+const $logout = $('#logout');
+const $mainContainer = $('#main-container');
+
+
 let route;
 
 function ajaxRequest(method, data, doneFunction = null) {
@@ -16,6 +20,9 @@ function ajaxRequest(method, data, doneFunction = null) {
     }).fail((jqXHR) => {
         console.log(jqXHR);
     }).done((data) => {
+        if (data.statusCode === 403) {
+            document.location.hash = 'loginSection';
+        }
         if (doneFunction === null) {
             return;
         }
@@ -51,12 +58,22 @@ function router() {
 }
 
 $(document).ready(function () {
+
+
     router();
     $(window).on('hashchange', function () {
         router();
     });
 
     leftMenuInit();
+
+    $logout.on('click', () => {
+        ajaxRequest('GET', {
+            logout: ''
+        }, () => {
+            document.location.reload(true);
+        });
+    });
 
     $('form').on('submit', (event) => {
         event.preventDefault();
@@ -109,5 +126,15 @@ $(document).ready(function () {
         .on('click', () => {
             $leftMenu.toggle(400);
         });
-
 });
+
+
+// function showLogin(){
+//     $mainContainer.hide();
+//     $loginSection.show();
+// }
+//
+// function showMainContainer(){
+//     $mainContainer.show();
+//     $loginSection.hide();
+// }

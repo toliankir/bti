@@ -240,7 +240,7 @@ class RequestHandler
         ResponseCreator::responseCreate(200, 'Ok', ['Link to article add' => $_GET['link']]);
     }
 
-    public function addExternalLink()
+    public function addCategoryLink()
     {
         if (empty($_GET['categoryId'])) {
             ResponseCreator::responseCreate(200, 'Category id empty');
@@ -248,7 +248,7 @@ class RequestHandler
         if (empty($_GET['link'])) {
             ResponseCreator::responseCreate(200, 'Link id empty');
         }
-        $this->service->addExternalLink($_GET['categoryId'], $_GET['link']);
+        $this->service->addCategoryLink($_GET['categoryId'], $_GET['link']);
         ResponseCreator::responseCreate(200, 'Ok', ['Link to article add' => $_GET['link']]);
     }
 
@@ -272,4 +272,45 @@ class RequestHandler
         $this->service->updateArticleExt($_GET['articleId'], json_encode($jsonExt));
         ResponseCreator::responseCreate(200, 'Ok', ['Ext changed' => $_GET['articleId']]);
     }
+
+    public function setArticlesOrderById()
+    {
+        $categories = $this->service->getAllCategories();
+        foreach ($categories as $value) {
+            $this->service->setArticlesOrderById($value['id']);
+        }
+    }
+
+
+    public function articleUp()
+    {
+        if (empty($_GET['id'])) {
+            ResponseCreator::responseCreate(200, 'Article id empty');
+        }
+        $article = $this->service->getArticleById($_GET['id']);
+        $maximumOrder = $this->service->getMaximumOrderInCategory($article['category']);
+        if ($article['art_order'] >= $maximumOrder) {
+            ResponseCreator::responseCreate(200, 'Article already on top');
+        }
+        $newestArticle = $this->service->getIdByCategoryAndOrder($article['art_order'] + 1, $article['category']);
+        $this->service->setOrderById($newestArticle, $article['art_order']);
+        $this->service->setOrderById($_GET['id'], $article['art_order'] + 1);
+        ResponseCreator::responseCreate(200, 'Article move to top on one step');
+    }
+
+    public function articleDown()
+    {
+        if (empty($_GET['id'])) {
+            ResponseCreator::responseCreate(200, 'Article id empty');
+        }
+        $article = $this->service->getArticleById($_GET['id']);
+        if ($article['art_order'] <= 0) {
+            ResponseCreator::responseCreate(200, 'Article already on down');
+        }
+        $latestArticle = $this->service->getIdByCategoryAndOrder($article['art_order'] - 1, $article['category']);
+        $this->service->setOrderById($latestArticle, $article['art_order']);
+        $this->service->setOrderById($_GET['id'], $article['art_order'] - 1);
+        ResponseCreator::responseCreate(200, 'Article move to down on one step');
+    }
+
 }

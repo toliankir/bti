@@ -1,69 +1,96 @@
 <?php
 
 use App\ViewHelpers\ArticleContentHelper;
+use App\ViewHelpers\ArticleFromCategoryHelper;
 use App\ViewHelpers\NewsBlockHelper;
 use App\ViewHelpers\NewsHelper;
+use App\ViewHelpers\RightBlockInfoHelper;
 use App\ViewHelpers\SliderHelper;
 
 
 ?>
+<div class="horizontal-line-green-2x">
+</div>
 
-<div class="promo part ">
+<div class="promo">
     <div class="slider">
         <?php
 
-        foreach ((new SliderHelper())->getData() as $value) {
-            echo('<div class="slider-item"><img src="../assets/promo/' . $value['filename'] . '"><div class="promo-text"><p>' .
-                $value['description'] . '</p></div></div>');
-        }
+//        foreach ((new SliderHelper())->getData() as $value) {
+//            echo('<div class="slider-item">
+//<img src="/assets/upload/' . $value['filename'] . '">'
+//                . '<div class="slider-text"><a href="/article/19"><p>' . $value['description'] . '</p></a></div></div>');
+//        }
         ?>
+        <div class="slider-item"><img src="/assets/images/slider.jpg"></div>
     </div>
-    <div class="slider-control">
 
-    </div>
+</div>
+<div class="horizontal-line-green-2x">
 </div>
 
-<div class="areas part">
+
+<div class="services">
     <div class="container">
-        <h3>Останні новини</h3>
-        <div class="news-items">
+        <h3>Послуги</h3>
+        <div class="service-items">
             <?php
-            $articles = (new NewsHelper())->getData();
-            for ($i = 0; $i < 3; $i++) {
+            $quantity = 6;
+            $articles = (new ArticleFromCategoryHelper(2))->getData();
+
+            for ($i = 0; $i < $quantity; $i++) {
                 $extJson = json_decode($articles[$i]['ext'], true);
                 $imageLink = '';
                 if ($extJson['mainImage'] !== '') {
                     $imageLink = $extJson['mainImage'];
                 }
-                echo '<div class="area-item"><div class="area-item__content">';
-//                echo '<p class="area-item__title">'.$articles[$i]['title'].'</p>';
-                echo '<p class="area-item__description"><a href="../article/' . $articles[$i]['id'] . '">' . $articles[$i]['title'] . '</a></p>';
-                echo '<i class="fas fa-arrow-circle-right"></i></div>';
-                echo '<div class="area-item__image">';
-                echo '<img src="../assets/upload/' . $extJson['mainImage'] . '">';
+                echo '<div class="service-item">';
+                echo '<div class="service-item__image">';
+                echo '<a href="/article/' . $articles[$i]['id'] . '"><img src="/assets/upload/' . $extJson['mainImage'] . '"></a>';
+                echo '</div><div class="service-item__content">';
+                echo '<p><a href="/article/' . $articles[$i]['id'] . '">' . $articles[$i]['title'] . '</a></p>';
+//                echo '<i class="fas fa-arrow-circle-right"></i></div>';
                 echo '</div></div>';
             }
             ?>
-
         </div>
-        <div class="show-all-articles">Усі новини</div>
+    </div>
+    <!--    <div class="show-all-articles">Усі новини</div>-->
+</div>
+
+<div class="sale">
+    <div class="container">
+        <div class="sale-item">
+            <i class="fas fa-hryvnia"></i>
+            <h4>Вигідні ціни</h4>
+        </div>
+        <div class="sale-item">
+            <i class="far fa-clock"></i>
+            <h4>Стислі терміни виконання замовлення</h4>
+        </div>
+        <div class="sale-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <h4>Представництва в Кіровоградський області</h4>
+        </div>
     </div>
 </div>
 
-<div class="content part">
+<div class="news">
     <div class="container">
-        <div class="article w-75">
-            <?php
-            echo ((new ArticleContentHelper('Головне'))->getData())['text'];
-            ?>
-        </div>
-        <div class="right-column w-25">
+        <div class="news-content">
             <?php
             echo (new NewsBlockHelper())->getData();
             ?>
         </div>
+        <div class="right-block">
 
+            <?php
+            echo (new RightBlockInfoHelper())->getData();
+            ?>
 
+        </div>
     </div>
 </div>
 
+<!--<div class="info">-->
+<!--</div>-->

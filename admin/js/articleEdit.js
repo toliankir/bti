@@ -83,13 +83,14 @@ function fillGallery() {
 
             $container
                 .append($(`<img class='gallery__img' src='${thumbLink}'>`))
+                .append($(`<div>${file.filename}</div>`))
                 .append($('<div class="gallery__menu"></div>')
                     .append($('<a>Дбавить в текст</a>')
                         .on('click', () => {
                             if (isImage) {
                                 tinymce.activeEditor.execCommand('mceInsertContent', false, `<img src='${link}'>`);
                             } else {
-                                tinymce.activeEditor.execCommand('mceInsertContent', false, `<a href='${link}'>${file.filename}</a>`);
+                                tinymce.activeEditor.execCommand('mceInsertContent', false, `<a target=_blank href='${link}'>${file.filename}</a>`);
                             }
                         }))
                     .append($('<a data-toggle="modal" data-target="#fileModal">Редактировать</a>')

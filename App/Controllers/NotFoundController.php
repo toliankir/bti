@@ -8,7 +8,7 @@ class NotFoundController extends Controller
 {
     public function action_index()
     {
-        $this->view->render('Test', 'MainTemplate', ['test' => 'Page not found']);
+        $this->view->render('NotFound', 'MainTemplate', ['test' => 'Page not found']);
     }
 
 }

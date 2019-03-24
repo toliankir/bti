@@ -62,8 +62,10 @@ class MysqlService
 
     public function addArticle($categoryId, $articleTitle, $articleDescription, $articleText, $articleVisible, $articleExt)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO ' . self::ARTICLE_TABLE . '(text, category, description, title, visible, ext) VALUES (:text, :category, :description, :title, :visible, :ext)');
+        $maximumOrderInCategory = $this->getMaximumOrderInCategory($categoryId) + 1;
+        $stmt = $this->pdo->prepare('INSERT INTO ' . self::ARTICLE_TABLE . '(text, art_order, category, description, title, visible, ext) VALUES (:text, :art_order, :category, :description, :title, :visible, :ext)');
         $stmt->bindParam(':category', $categoryId);
+        $stmt->bindParam(':art_order', $maximumOrderInCategory);
         $stmt->bindParam(':description', $articleDescription);
         $stmt->bindParam(':text', $articleText);
         $stmt->bindParam(':title', $articleTitle);
@@ -74,9 +76,16 @@ class MysqlService
 
     public function updateArticle($id, $categoryId, $articleTitle, $articleDescription, $articleText, $articleVisible, $articleExt)
     {
-        $stmt = $this->pdo->prepare('UPDATE ' . self::ARTICLE_TABLE . ' SET text=:text, category=:category, title=:title, description=:description, visible=:visible, ext=:ext WHERE id=:id');
+        $prevArticleData = $this->getArticleById($id);
+        $artOrder = $prevArticleData['art_order'];
+        if ($prevArticleData['category'] !== $categoryId) {
+            $artOrder = $this->getMaximumOrderInCategory($categoryId) + 1;
+        }
+
+        $stmt = $this->pdo->prepare('UPDATE ' . self::ARTICLE_TABLE . ' SET text=:text, category=:category, title=:title, description=:description, visible=:visible, art_order=:art_order, ext=:ext WHERE id=:id');
         $stmt->bindParam(':text', $articleText);
         $stmt->bindParam(':category', $categoryId);
+        $stmt->bindParam(':art_order', $artOrder);
         $stmt->bindParam(':title', $articleTitle);
         $stmt->bindParam(':description', $articleDescription);
         $stmt->bindParam(':id', $id);
@@ -104,7 +113,7 @@ class MysqlService
     public function getArticlesWOTByCategory($category)
     {
         $stmt = $this->pdo->prepare('SELECT c.category, a.category as categoryId, a.description, a.ext, a.id, a.timestamp, a.title, a.description FROM '
-            . self::ARTICLE_TABLE . ' a LEFT JOIN ' . self::CATEGORY_TABLE . ' c ON a.category = c.id WHERE c.category LIKE :category ORDER BY a.timestamp DESC');
+            . self::ARTICLE_TABLE . ' a LEFT JOIN ' . self::CATEGORY_TABLE . ' c ON a.category = c.id WHERE c.category LIKE :category ORDER BY a.art_order DESC');
         $prepareCategory = $category . '%';
         $stmt->bindParam(':category', $prepareCategory);
         $stmt->execute();
@@ -121,8 +130,8 @@ class MysqlService
 
     public function getArticlesCategoryId($id)
     {
-        $stmt = $this->pdo->prepare('SELECT category, description, ext, id, visible, timestamp, title, description FROM '
-            . self::ARTICLE_TABLE . ' WHERE category = :id');
+        $stmt = $this->pdo->prepare('SELECT category, art_order as art_order, description, ext, id, visible, timestamp, title, description FROM '
+            . self::ARTICLE_TABLE . ' WHERE category = :id ORDER BY art_order DESC');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -208,12 +217,12 @@ class MysqlService
         $stmt->execute();
     }
 
-    public function addExternalLink($categoryId, $link)
+    public function addCategoryLink($categoryId, $link)
     {
         $stmt = $this->pdo->prepare('INSERT INTO ' . self::ARTICLE_TABLE . '(category, description, visible, ext) VALUES (:category, :description, true, :ext)');
         $descStr = 'Link to ' . $link;
         $ext = json_encode([
-            'externalLink' => $link
+            'categoryLink' => $link
         ]);
         $stmt->bindParam(':category', $categoryId);
         $stmt->bindParam(':description', $descStr);
@@ -228,5 +237,54 @@ class MysqlService
             ' a WHERE a.category NOT IN (SELECT id FROM ' . self::CATEGORY_TABLE . ')');
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function setArticlesOrderById($categoryId)
+    {
+        $stmt = $this->pdo->prepare('SELECT id FROM '
+            . self::ARTICLE_TABLE . ' WHERE category = :id');
+        $stmt->bindParam(':id', $categoryId);
+        $stmt->execute();
+        $artIds = $stmt->fetchAll();
+        $stmt = $this->pdo->prepare('UPDATE ' . self::ARTICLE_TABLE . ' SET art_order=:art_order WHERE id=:id');
+        foreach ($artIds as $key => $value) {
+            $stmt->bindParam(':art_order', $key);
+            $stmt->bindParam(':id', $value['id']);
+            $stmt->execute();
+        }
+    }
+
+    public function getMaximumOrderInCategory($categoryId)
+    {
+        $stmt = $this->pdo->prepare('SELECT art_order FROM ' . self::ARTICLE_TABLE . ' WHERE category = :id ' .
+            'ORDER BY art_order DESC LIMIT 1');
+        $stmt->bindParam(':id', $categoryId);
+        $stmt->execute();
+        return ($stmt->fetch())['art_order'];
+    }
+
+    public function setOrderById($id, $orderValue)
+    {
+        $stmt = $this->pdo->prepare('UPDATE ' . self::ARTICLE_TABLE . ' SET art_order=:art_order WHERE id=:id');
+        $stmt->bindParam(':art_order', $orderValue);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function getOrderById($id)
+    {
+        $stmt = $this->pdo->prepare('SELECT art_order FROM ' . self::ARTICLE_TABLE . ' WHERE id=:id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return ($stmt->fetch())['art_order'];
+    }
+
+    public function getIdByCategoryAndOrder($artOrder, $categoryId)
+    {
+        $stmt = $this->pdo->prepare('SELECT id FROM ' . self::ARTICLE_TABLE . ' WHERE art_order=:art_order AND category=:category');
+        $stmt->bindParam(':art_order', $artOrder);
+        $stmt->bindParam(':category', $categoryId);
+        $stmt->execute();
+        return ($stmt->fetch())['id'];
     }
 }

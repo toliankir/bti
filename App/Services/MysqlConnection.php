@@ -9,7 +9,7 @@ class mysqlConnection
 {
     private $pdo = null;
     public static $instance;
-    public function __construct()
+    private function __construct()
     {
             $config = require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'mysql.php';
             $dsn = 'mysql:host=' . $config['db_host'] .

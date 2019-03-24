@@ -9,7 +9,7 @@ class SliderHelper extends ViewHelper
 {
     private $service;
 
-    const SLIDER_ARTICLE = 44;
+    const SLIDER_ARTICLE = 12;
 
     public function __construct()
     {
