@@ -13,8 +13,7 @@ function loginSection() {
             if (data.statusCode !== 200) {
                 return;
             }
-            document.location.hash = '';
-            router();
+            document.location.reload(true);
         });
     });
 

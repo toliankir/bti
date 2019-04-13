@@ -9,80 +9,91 @@ body {
   box-sizing: border-box;
   position: relative;
 }
-.container {
-  margin: auto;
-  height: 100%;
-  width: 1200px;
-}
 header {
-  height: 130px;
+  background-color: #21b081;
+  margin-bottom: 1rem;
 }
 header .container {
-  padding: 0 25px;
-  height: 100%;
+  margin-top: 25px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
-header .container a {
-  text-decoration: none;
+header .container .logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-header .container h1 {
+header .container .logo a {
+  margin-left: 25px;
+  width: fit-content;
+  text-decoration: none;
+  text-align: left;
+}
+header .container .logo a h1 {
   color: #222222;
   top: -5px;
   font-weight: bold;
-  margin: 0 0 0 20px;
   padding: 0;
-  font-size: 19px;
+  font-size: 0.7rem;
 }
-header .container h1 p {
+header .container .logo a h1 p {
   top: 5px;
-  color: #198562;
+  color: white;
   font-weight: normal;
-  left: -2px;
   margin: 0;
   padding: 0;
-  font-size: 22px;
+  font-size: 1.2rem;
+}
+header .container .logo img {
+  height: 90px;
 }
 header .container nav {
-  flex-grow: 1;
+  width: 100%;
 }
 header .container nav ul {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-header .container nav ul li a {
-  color: #222222;
-  padding: 0;
-  margin: 0 0 0 25px;
-  font-size: 17px;
-  text-decoration: none;
+header .container nav ul li {
+  text-align: center;
+  margin: 0.3rem 0;
 }
-header .container nav ul li a:hover {
-  color: #1d9d73;
+header .container nav ul li:last-child {
+  margin-bottom: 0.6rem;
+}
+header .container nav ul li a {
+  color: white;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 .horizontal-line {
   height: 1px;
   width: 100%;
-  min-width: 1200px;
+  display: none;
   background: #f2f2f2;
 }
 .horizontal-line-green-2x {
   width: 100%;
-  min-width: 1200px;
   background: #1d9d73;
+  display: none;
   height: 2px;
 }
 .horizontal-line-green-1x {
   width: 100%;
-  min-width: 1200px;
   background: #1d9d73;
   height: 1px;
 }
 .news-info {
+  display: none;
   min-width: 350px;
   margin-top: 25px;
   padding: 25px;
@@ -103,31 +114,16 @@ header .container nav ul li a:hover {
   padding: 0;
   margin-bottom: 25px;
 }
-main {
-  flex-grow: 1;
-}
 main h3 {
   color: #1d9d73;
-  margin: 0 0 25px 0;
+  margin: 0 0 0.5rem 0;
   padding: 0;
   text-align: center;
-  font-size: 24px;
-}
-main h3:after {
-  content: '';
-  height: 1px;
-  width: 100px;
-  background-color: #1d9d73;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  margin-left: -50px;
+  font-size: 1.5rem;
 }
 main .news {
   padding: 25px 0 25px 0;
-}
-main .news .container {
-  display: flex;
+  display: none;
 }
 main .news-content {
   width: 70%;
@@ -159,67 +155,57 @@ main .news .right-block {
 main .info {
   height: 350px;
 }
-main .sale {
-  background-color: #f6f8fa;
-}
-main .sale .container {
-  display: flex;
-}
-main .sale .container h4 {
+main .sale h4 {
   color: white;
   margin: 0;
   padding: 0;
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: normal;
 }
-main .sale .container i {
+main .sale i {
   color: white;
   margin-bottom: 25px;
-  font-size: 64px;
+  font-size: 4rem;
 }
-main .sale .container .sale-item {
+main .sale .sale-item {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: auto;
-  height: 30vw;
-  max-height: 40vh;
+  width: 100%;
+  text-align: center;
+  height: 33vh;
   background-color: #1d9d73;
 }
-main .sale .container .sale-item:first-child {
-  flex-grow: 0;
-  width: 33.33%;
+main .sale .sale-item:first-child {
   background-color: #21b081;
 }
-main .sale .container .sale-item:last-child {
-  flex-grow: 0;
-  width: 33.33%;
+main .sale .sale-item:last-child {
   background-color: #198562;
+}
+main .promo {
+  display: none;
 }
 main .promo .slider {
   overflow: hidden;
   height: 300px;
   width: 100%;
-  min-width: 1200px;
+  min-width: 100%;
 }
 main .promo .slider .slider-item {
   position: absolute;
   width: 100%;
 }
 main .article-list {
-  padding: 25px 0 25px 0;
-}
-main .article-list .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
   display: flex;
 }
-main .article-list .container .right-block {
-  width: 30%;
+main .article-list .right-block {
+  display: none;
+  width: 350px;
 }
-main .article-list .container .content {
+main .article-list .content {
   flex-grow: 1;
 }
 main .article-list .pages-nav {
@@ -239,56 +225,54 @@ main .article-list .pages-nav a:after {
 main .article-list .pages-nav a:last-child:after {
   content: '';
 }
-main .article-list__item {
-  margin-bottom: 25px;
+main .article-list__items {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 }
-main .article-list__content {
+main .article-list__item {
+  padding: 0 25px;
+  display: flex;
+  margin-bottom: 25px;
+}
+main .article-list__item__content {
   height: 100%;
-  margin-left: 25px;
+  margin-left: 12.5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   color: #222222;
 }
-main .article-list__content h5 {
-  font-size: 16px;
+main .article-list__item__content h5 {
+  font-size: 1rem;
   margin: 0;
   padding: 0;
   color: #222222;
   display: inline-block;
 }
-main .article-list__content h5 span {
+main .article-list__item__content h5 span {
   margin-left: 5px;
-  font-size: 11px;
+  font-size: 0.6rem;
 }
-main .article-list__content p {
+main .article-list__item__content p {
   margin: 0;
   padding: 0;
 }
-main .article-list__content p a {
+main .article-list__item__content p a {
   color: #21b081;
 }
-main .article-list__image {
-  height: 75px;
-  overflow: hidden;
+main .article-list__image img {
   width: 120px;
 }
-main .article-list__image img {
-  max-width: 120px;
-}
-main .article .container {
-  padding: 25px 0 25px 0;
-  width: 90%;
-  max-width: 1200px;
-  text-align: justify;
+main .article {
+  padding: 0 25px;
 }
 main .article a {
   color: #198562;
 }
 main .article h3 {
-  font-size: 24px;
+  font-size: 2rem;
   color: #222222;
   text-align: center;
   padding: 0;
@@ -298,87 +282,62 @@ main .article h3:after {
   display: none;
 }
 main .article h5 {
-  font-size: 14px;
+  font-size: 1rem;
   color: #222222;
 }
 main .article h5 a {
   color: #21b081;
 }
+main .article p {
+  font-size: 1rem;
+}
 main .services {
-  min-width: 1200px;
-  padding: 25px 0 25px 0;
+  width: 100%;
 }
 main .services .service-items {
-  justify-content: space-between;
+  justify-content: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 main .services .service-items .service-item {
-  width: 30%;
-  margin-bottom: 10px;
+  width: 100%;
 }
 main .services .service-items .service-item__image {
-  height: 275px;
+  height: 30vh;
   overflow: hidden;
 }
 main .services .service-items .service-item__image img {
+  top: -30%;
   width: 100%;
-  transition: transform 0.2s;
-}
-main .services .service-items .service-item__image img:hover {
-  transform: scale(1.1);
 }
 main .services .service-items .service-item__content {
   text-align: center;
 }
+main .services .service-items .service-item__content p {
+  margin: 0 0 1.5rem 0;
+}
 main .services .service-items .service-item__content a {
-  font-size: 18px;
+  font-size: 1.2rem;
   text-decoration: none;
   color: #1d9d73;
 }
-main .services .service-items .service-item__content i {
-  font-size: 20px;
-  margin-top: 5px;
-  color: #1d9d73;
-}
-main .services .service-items .service-item__content p {
-  font-size: 16px;
-  margin: 5px 0 0 0;
-  padding: 0;
-}
 footer {
   width: 100%;
-  min-width: 1200px;
-  height: 250px;
+  min-width: 100%;
   background-color: #198562;
-}
-footer .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-top: 25px;
 }
 footer .container div {
   padding: 0 25px;
-  width: 50%;
+  width: 100%;
 }
-footer .container .title h3 {
-  color: white;
-  font-size: 20px;
-  top: -5px;
-  margin: 0;
-  padding: 0;
-}
-footer .container .title h3 p {
-  top: 5px;
-  font-size: 18px;
-  font-weight: normal;
-  margin: 0;
-  padding: 0;
-  color: black;
+footer .container .title {
+  display: none;
 }
 footer .container .content {
-  font-size: 15px;
+  font-size: 1rem;
   color: white;
-  text-align: right;
+  text-align: left;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style_mobile.css.map */

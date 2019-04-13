@@ -1,5 +1,6 @@
 <?php
-define('ROOT_DIR', __DIR__);
+define('ROOT_DIR', dirname(__DIR__));
+
 define('IMAGE_URL_PATH', '../');
 spl_autoload_register(function ($className) {
     $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';

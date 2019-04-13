@@ -139,13 +139,11 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>id</th>
-                    <th class="w-40">Title</th>
-                    <th class="w-40">Description</th>
+                    <th data-memo="Уникальное значение для каждой статьи, с помощью него можно ссылатся на статью">id</th>
+                    <th data-memo="Название статьи" class="w-40">Title</th>
+                    <th data-memo="Короткое описание статьи, не обязательное поле" class="w-40">Description</th>
                     <th></th>
-                    <th>
-                        <div style="width: 140px;"></div>
-                    </th>
+                    <th class="w-15"></th>
                 </tr>
                 </thead>
                 <tbody id="articleList-body">
@@ -153,11 +151,11 @@
             </table>
             <div class="ml-1 mt-1 row w-95">
                 <button class="btn btn-success" id="add-article">Добавить статью</button>
-                <button class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
+                <button data-memo="Добавить в раздел статью с помощтю ее id. Создается ссылка на статью." class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
                 <input type="text" class="form-control ml-1 w-10" id="link-id" placeholder="id статьи">
 
-                <button class="btn btn-info ml-4" id="add-category-link">Добавить внешнюю ссылку</button>
-                <input type="text" class="form-control ml-1 w-10" id="category-link" placeholder="link">
+                <button class="btn btn-info ml-4" data-memo="Добавить в данный раздел содержимое другого разедела. В поле указать имя раздела" id="add-category-link">Добавить ссылку на раздел</button>
+                <input type="text" class="form-control ml-1 w-10" id="category-link" placeholder="раздел">
             </div>
 
             <!--</div>-->
@@ -172,26 +170,26 @@
                     <th>Article</th>
                     <th>Description</th>
                     <th>Status</th>
-                    <th></th>
+                    <th class="w-25"></th>
                 </tr>
                 </thead>
                 <tbody id="filesList-body"></tbody>
             </table>
         </section>
-
-        <section id="loginSection" >
-            <div class="w-30 d-flex flex-column align-items-center">
-                <h3>Login</h3>
-                <input type="text" class="form-control" id="loginField" title="login" placeholder="Login">
-                <input type="text" class="form-control mt-1" id="passwordField" title="password" placeholder="Password">
-                <button id="login" class="btn btn-success mt-1 w-95">Login</button>
-            </div>
-        </section>
-
     </div>
 </div>
 
 
+<div id="login-container">
+    <section id="loginSection" class="w-30">
+        <div class="d-flex flex-column align-items-center">
+            <h3>Login</h3>
+            <input type="text" class="form-control" id="loginField" title="login" placeholder="Login">
+            <input type="text" class="form-control mt-1" id="passwordField" title="password" placeholder="Password">
+            <button id="login" class="btn btn-success mt-1 w-95">Login</button>
+        </div>
+    </section>
+</div>
 <!-- CategoriesConfigurator Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -246,7 +244,7 @@
 
     </div>
 </div>
-</div>
+
 
 <script src="js/script.js"></script>
 <script src="js/categoriesConfigurator.js"></script>
@@ -254,5 +252,6 @@
 <script src="js/articleEdit.js"></script>
 <script src="js/articleList.js"></script>
 <script src="js/loginSection.js"></script>
+<script src="js/memo.js"></script>
 </body>
 </html>

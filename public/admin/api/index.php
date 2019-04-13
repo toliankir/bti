@@ -1,9 +1,9 @@
 <?php
 session_start();
-define('ROOT_DIR', dirname(__DIR__, 2));
+define('ROOT_DIR', dirname(__DIR__, 3));
 
 spl_autoload_register(function ($className) {
-    $filePath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+    $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
     if (file_exists($filePath)) {
         require_once $filePath;
     }

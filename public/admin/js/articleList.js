@@ -55,7 +55,7 @@ function fillArticleList() {
                                     fillArticleList();
                                 });
                             })))
-                    .append($('<td></td>')
+                    .append($('<td class="nowrap"></td>')
                         .append($btnEdit)
                         .append($btnDelete));
                 $articleListBody.append($row);

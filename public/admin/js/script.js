@@ -7,7 +7,7 @@ const $categoriesToggle = $('#categories-toggle');
 
 const $logout = $('#logout');
 const $mainContainer = $('#main-container');
-
+const $loginContainer = $('#login-container');
 
 let route;
 
@@ -32,11 +32,14 @@ function ajaxRequest(method, data, doneFunction = null) {
 
 
 function leftMenuInit() {
-    const list = [];
-
     ajaxRequest('GET', {
         action: 'getAllCategories'
     }, (responseData) => {
+        if (responseData.statusCode !== 200) {
+            return;
+        }
+        $mainContainer.css({display: 'flex'});
+        $loginContainer.hide();
         $leftMenu.html('');
         allCategoriesData = responseData.body;
         allCategoriesData.sort((a, b) => a.category.localeCompare(b.category)).forEach((element) => {
@@ -54,7 +57,11 @@ function router() {
     }
 
     window[route[0]]();
-    $('#' + route[0]).show();
+    $('#' + route[0]).show(0, () => {
+        showMemo('#' + route[0]);
+    });
+
+
 }
 
 $(document).ready(function () {
@@ -97,12 +104,12 @@ $(document).ready(function () {
         selector: "#article-text",
         width: '100%',
         height: 500,
-        plugins: "link table lists hr",
+        plugins: "link table lists hr code",
         statusbar: true,
         menubar: true,
         relative_urls: false,
         convert_urls: false,
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect link image | numlist bullist",
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect link image | numlist bullist | code" ,
         // toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
         // style_formats : [
         //     {title : 'Parahraph', inline : 'p'},
@@ -128,13 +135,3 @@ $(document).ready(function () {
         });
 });
 
-
-// function showLogin(){
-//     $mainContainer.hide();
-//     $loginSection.show();
-// }
-//
-// function showMainContainer(){
-//     $mainContainer.show();
-//     $loginSection.hide();
-// }

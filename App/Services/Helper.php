@@ -48,6 +48,17 @@ class Helper
             return array_merge($articleArray, $newArticles);
         }
 
+        if (key_exists('categoryLink', $ext)) {
+            $subject = preg_replace('/^.*\//', '', $ext['categoryLink']);
+            $articles = $this->mysqlService->getArticlesWOTByCategory($subject);
+
+            $newArticles = [];
+            foreach ($articles as $newArticle) {
+                $newArticles = $this->articleHandler($newArticle, $newArticles);
+            }
+            return array_merge($articleArray, $newArticles);
+        }
+
         $articleArray[] = $article;
         return $articleArray;
     }

@@ -39,12 +39,11 @@ class ArticlesModel extends Model
         $articles = $this->mysqlService->getArticlesWOTByCategory($this->section);
         $result = [];
 
+
         foreach ($articles as $article) {
             $result = (new Helper())->articleHandler($article, $result);
         }
-
         $pagesCount = intval((count($result) - 1) / $this->articlesPerPage);
-
 
         if ($this->articlesPerPage !== 0) {
             if ($this->startArticle > count($result)) {
