@@ -38,7 +38,7 @@ function leftMenuInit() {
         if (responseData.statusCode !== 200) {
             return;
         }
-        $mainContainer.css({display: 'flex'});
+        $mainContainer.css({display: 'block'});
         $loginContainer.hide();
         $leftMenu.html('');
         allCategoriesData = responseData.body;
@@ -57,23 +57,19 @@ function router() {
     }
 
     window[route[0]]();
-    $('#' + route[0]).show(0, () => {
-        showMemo('#' + route[0]);
-    });
+    $('#' + route[0]).show();
 
 
 }
 
 $(document).ready(function () {
-
-
     router();
     $(window).on('hashchange', function () {
         router();
     });
 
     leftMenuInit();
-
+    showMemo();
     $logout.on('click', () => {
         ajaxRequest('GET', {
             logout: ''

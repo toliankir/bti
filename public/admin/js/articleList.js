@@ -4,6 +4,9 @@ const $addLink = $('#add-link');
 const $linkId = $('#link-id');
 const $addCategoryLink = $('#add-category-link');
 const $categoryLink = $('#category-link');
+const $addExternalLink = $('#add-external-link');
+const $externalLink = $('#external-link');
+const $articleListActions = $('#article-list-actions');
 
 let articleListListeners = false;
 let articles;
@@ -37,7 +40,7 @@ function fillArticleList() {
                     .append(`<td>${article.description}</td>`)
                     // .append('<td><b>'+ (article.visible === '1' ? '+' : '-') +'</b></td>')
                     .append($('<td></td>')
-                        .append($('<span>Вниз</i></span>')
+                        .append($('<span class="cursor-pointer">▼</span>')
                             .on('click', () => {
                                 ajaxRequest('GET', {
                                     action: 'articleDown',
@@ -46,7 +49,7 @@ function fillArticleList() {
                                     fillArticleList();
                                 });
                             }))
-                        .append($('<span>Вверх</span>')
+                        .append($('<span class="cursor-pointer">▲</span>')
                             .on('click', () => {
                                 ajaxRequest('GET', {
                                     action: 'articleUp',
@@ -65,6 +68,13 @@ function fillArticleList() {
 }
 
 function addArticleListListeners() {
+
+    if (route[1] === 'noCategory') {
+        $articleListActions.hide();
+    } else {
+        $articleListActions.show();
+    }
+
     if (articleListListeners) {
         return;
     }
@@ -99,6 +109,18 @@ function addArticleListListeners() {
         });
     });
 
+    $addExternalLink.on('click', () => {
+        if ($externalLink.val() === '') {
+            return;
+        }
+        ajaxRequest('GET', {
+            action: 'addExternalLink',
+            categoryId: route[1],
+            link: $externalLink.val()
+        }, () =>{
+            fillArticleList();
+        });
+    });
 }
 function articleList() {
     addArticleListListeners();

@@ -16,6 +16,10 @@ button {
     display: none;
 }
 
+.main-content {
+    display: flex;
+}
+
 #login-container {
     display: flex;
     align-items: center;
@@ -23,9 +27,6 @@ button {
     height: 100%;
 }
 
-#login-container section {
-
-}
 
 #article-gallery {
     display: flex;
@@ -120,6 +121,7 @@ button {
 .w-10 {
     width: 10%;
 }
+
 .w-15 {
     width: 15%;
 }
@@ -148,6 +150,10 @@ button {
     width: 90%;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .nowrap {
     white-space: nowrap;
 }
@@ -159,6 +165,7 @@ button {
     position: absolute;
     background-color: #dddddd;
     max-width: 350px;
+    opacity: 0.9;
 }
 
 .memo:after {

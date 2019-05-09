@@ -19,22 +19,22 @@ class HeaderMenuHelper extends ViewHelper
     public function getData()
     {
         $articles = $this->service->getArticlesCategoryName($this->section);
-        usort($articles, function ($a, $b) {
-            return strcasecmp($a['title'], $b['title']);
-        });
 
         $result = '';
         foreach ($articles as $value) {
-            $ext = [];
-            if (!empty($value['ext'])) {
-                $ext = json_decode($value['ext'], true);
+            $ext = json_decode($value['ext'], true);;
+            $link = '/article/' . $value['id'];
+            if (isset($ext['LinkToArticle'])) {
+                $link = '/article/' . $ext['LinkToArticle'];
             }
-
+            if (isset($ext['categoryLink'])) {
+                $link = '/articles/' . $ext['categoryLink'];
+            }
+            if (isset($ext['externalLink'])) {
+                $link = $ext['externalLink'];
+            }
             $result = $result . "\n" .
-                '<li><a href="'.
-                ((array_key_exists('externalLink', $ext) && !empty($ext["externalLink"]))
-                    ? $ext["externalLink"] : '../article/' . $value['id'])
-                . '">' . $value['title'] . '</a></li>';
+                '<li><a href="' . $link . '">' . $value['title'] . '</a></li>';
         }
         return $result;
     }

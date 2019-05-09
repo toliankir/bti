@@ -1,6 +1,7 @@
 <?php
 session_start();
 define('ROOT_DIR', dirname(__DIR__, 3));
+$access = require_once ROOT_DIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'access.php';
 
 spl_autoload_register(function ($className) {
     $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
@@ -14,7 +15,7 @@ use \App\{
 };
 
 if (isset($_GET['login'],$_GET['password'])  &&
-    ($_GET['login'] === 'admin' && $_GET['password'] === 'koo')) {
+    ($_GET['login'] === $access['login'] && $_GET['password'] === $access['password'])) {
 
     $_SESSION['login'] = $_GET['login'];
     ResponseCreator::responseCreate(200, 'Login success');

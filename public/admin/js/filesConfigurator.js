@@ -3,6 +3,7 @@ const $modalFileArticle = $('#modal-file_article');
 const $modalFileDescription = $('#modal-file_description');
 const $modalFileId = $('#modal-file_id');
 const $modalFilename = $('#modal-file_name');
+
 function fillFileListTable() {
     ajaxRequest('GET', {
         'action': 'getAllFiles',
@@ -13,7 +14,7 @@ function fillFileListTable() {
 
             $filesListBody.append(
                 $('<tr></tr>')
-                    .append($(`<td><img class='icon-file-configurator' src="${assetsLink}/fileicons/${fileExtension}.svg">${item.filename}</td>`))
+                    .append($(`<td><img class='icon-file-configurator' src="${assetsLink}/fileicons/${fileExtension}.svg"><a traget=_blank href="${uploadFileLink}/${item.filename}">${item.filename}</a></td>`))
                     .append($(`<td>${item.article}</td>`))
                     .append($(`<td>${item.title}</td>`))
                     .append($(`<td>${item.description}</td>`))

@@ -140,7 +140,7 @@ class MysqlService
     public function getArticlesCategoryName($category)
     {
         $stmt = $this->pdo->prepare('SELECT c.category, a.category as categoryId, a.description, a.ext, a.id, a.timestamp, a.title, a.description FROM '
-            . self::ARTICLE_TABLE . ' a LEFT JOIN ' . self::CATEGORY_TABLE . ' c ON a.category = c.id WHERE c.category LIKE :category');
+            . self::ARTICLE_TABLE . ' a LEFT JOIN ' . self::CATEGORY_TABLE . ' c ON a.category = c.id WHERE c.category LIKE :category ORDER BY art_order DESC');
         $stmt->bindParam(':category', $category);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -206,30 +206,28 @@ class MysqlService
 
     public function addLinkToArticle($categoryId, $link)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO ' . self::ARTICLE_TABLE . '(category, description, visible, ext) VALUES (:category, :description, true, :ext)');
-        $descStr = 'Link to article id #' . $link;
-        $ext = json_encode([
-            'LinkToArticle' => $link
-        ]);
-        $stmt->bindParam(':category', $categoryId);
-        $stmt->bindParam(':description', $descStr);
-        $stmt->bindParam(':ext', $ext);
-        $stmt->execute();
+
+        $this->addArticle($categoryId, '', 'Ссылка на статью - ' . $link,
+            '', '', json_encode([
+                'LinkToArticle' => $link
+            ]));
     }
 
     public function addCategoryLink($categoryId, $link)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO ' . self::ARTICLE_TABLE . '(category, description, visible, ext) VALUES (:category, :description, true, :ext)');
-        $descStr = 'Link to ' . $link;
-        $ext = json_encode([
-            'categoryLink' => $link
-        ]);
-        $stmt->bindParam(':category', $categoryId);
-        $stmt->bindParam(':description', $descStr);
-        $stmt->bindParam(':ext', $ext);
-        $stmt->execute();
+        $this->addArticle($categoryId, '', 'Ссылка на раздел - ' . $link,
+            '', '', json_encode([
+                'categoryLink' => $link
+            ]));
     }
 
+    public function addExternalLink($categoryId, $link)
+    {
+        $this->addArticle($categoryId, '', 'Внешняя ссылка -' . $link,
+            '', '', json_encode([
+                'externalLink' => $link
+            ]));
+    }
 
     public function getArticlesWoCategory()
     {

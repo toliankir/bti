@@ -1,11 +1,8 @@
 <?php
 
-use App\ViewHelpers\ArticleContentHelper;
 use App\ViewHelpers\ArticleFromCategoryHelper;
 use App\ViewHelpers\NewsBlockHelper;
-use App\ViewHelpers\NewsHelper;
 use App\ViewHelpers\RightBlockInfoHelper;
-use App\ViewHelpers\SliderHelper;
 
 
 ?>

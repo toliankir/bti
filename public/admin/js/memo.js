@@ -1,10 +1,10 @@
-function showMemo(section) {
+function showMemo(section = '.main-content') {
     const $body = $('body');
     const $memo = $('<div class="memo"></div>');
     if (!$body.has($('.memo')).length) {
         $body.append($memo);
     }
-    $memo.css('opacity', 0);
+    $memo.hide();
     const ARROW_HEIGHT = 8;
     const $memoElement = $(`${section} [data-memo]`);
     $memoElement
@@ -19,12 +19,12 @@ function showMemo(section) {
                 .text(elementText)
                 .css('top', position.top - $memo.outerHeight() - ARROW_HEIGHT)
                 .css('left', position.left)
-                .animate({opacity: 0.9},200);
+                .show();
         });
 
     $memoElement
         .on('mouseleave', () => {
-            $memo.animate({opacity: 0},200);
+            $memo.hide();
         });
 
 }

@@ -16,166 +16,184 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item">
-                <a id="logout" class="nav-link">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
 
-<div id="main-container" class="row mr-0 mt-3">
-    <div class="col-4 col-xl-3">
-        <ul class="list-group">
-            <li class="list-group-item" id="categories-toggle">Разделы</li>
-            <ul class="list-group-item" id="leftMenu"></ul>
-            <li class="list-group-item"><a href="#articleList/noCategory">Без категорий</a></li>
-            <li class="list-group-item"><a href="#categoriesConfigurator">Редактор категорий</a></li>
-            <li class="list-group-item"><a href="#filesConfigurator">Менеджер файлов</a></li>
-        </ul>
-    </div>
+<div id="main-container" class="mr-0 mb-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <a id="logout" class="nav-link cursor-pointer">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="col-8 col-xl-9 pr-0 pl-0">
+    <div class="main-content">
+        <div class="col-4 col-xl-3">
+            <ul class="list-group">
+                <li class="list-group-item" id="categories-toggle">Разделы</li>
+                <ul class="list-group-item" id="leftMenu"></ul>
+                <li class="list-group-item"><a href="#articleList/noCategory">Без категорий</a></li>
+                <li class="list-group-item"><a href="#categoriesConfigurator">Редактор категорий</a></li>
+                <li class="list-group-item"><a href="#filesConfigurator">Менеджер файлов</a></li>
+            </ul>
+        </div>
 
-        <section id="categoriesConfigurator">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th id="category-sort_by_name">Навазание категории</th>
-                    <th>Описание категории</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="categories_list">
-                </tbody>
-            </table>
+        <div class="col-8 col-xl-9 pr-0 pl-0">
 
-            <form action="#" id="addCategory">
-                <div class="row mr-0">
-                    <div class="col-12">
-                        <h5>Добавать новую категорию</h5>
-                    </div>
-                    <div class="col-6">
-                        <input class="form-control" type="text" placeholder="Category name" name="categoryName"
-                               id="categoryName"
-                               title="Category name">
-                    </div>
-                    <div class="col-6">
-                        <input class="form-control" type="text" placeholder="Category description"
-                               name="categoryDescription"
-                               id="categoryDescription"
-                               title="Category description">
-                    </div>
-                    <div class="col-12">
-                        <input class="btn btn-success mt-3" type="Submit">
-                    </div>
-                </div>
-            </form>
-        </section>
+            <section id="categoriesConfigurator">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th id="category-sort_by_name">Навазание категории</th>
+                        <th>Описание категории</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="categories_list">
+                    </tbody>
+                </table>
 
-        <section id="articleEdit">
-            <div class="pr-3">
-                <label for="article-category">Раздел</label>
-                <select class="form-control" id="article-category"></select>
-                <label for="article-title">Заголовок</label>
-                <input type="text" class="form-control" id="article-title">
-                <label for="article-title">Короткое описание</label>
-                <input type="text" class="form-control" id="article-description">
-                <label for="article-text">Текст</label>
-                <textarea class="form-control" id="article-text"></textarea>
-                <div class="form-check">
-                    <input type="checkbox" id="article-visible" class="form-check-input">
-                    <label for="article-visible">Видимость</label>
-                </div>
-                <label for="article-title">Дополнительные параметры</label>
-                <textarea class="form-control" id="article-ext"></textarea>
-                <input type="button" class="btn btn-success mt-3" id="article-send" value="Add article">
-            </div>
-            <div id="gallery">
-                <div class="mt-2 mr-0 row">
-                    <div class="col-2">
-                        <button class="btn btn-info" id="article-gallery-toggle">Gallery</button>
-                    </div>
-                    <form action="#" class="col-10 row mr-0" id="uploadFile" enctype="multipart/form-data">
-                        <div class="col-8">
-                            <input type="file" name="fileData" class="form-control-file">
-                            <input type="hidden" id="file-article-id" name="articleId">
+                <form action="#" id="addCategory">
+                    <div class="row mr-0">
+                        <div class="col-12">
+                            <h5>Добавать новую категорию</h5>
                         </div>
-                        <div class="col-4">
-                            <input type="Submit" class="btn ml-3 btn-success" value="Загрузить">
+                        <div class="col-6">
+                            <input class="form-control" type="text" placeholder="Category name" name="categoryName"
+                                   id="categoryName"
+                                   title="Category name">
                         </div>
-                    </form>
+                        <div class="col-6">
+                            <input class="form-control" type="text" placeholder="Category description"
+                                   name="categoryDescription"
+                                   id="categoryDescription"
+                                   title="Category description">
+                        </div>
+                        <div class="col-12">
+                            <input class="btn btn-success mt-3" type="Submit">
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section id="articleEdit">
+                <div class="pr-3">
+                    <label for="article-category">Раздел</label>
+                    <select class="form-control" id="article-category"></select>
+                    <label for="article-title">Заголовок</label>
+                    <input type="text" class="form-control" id="article-title">
+                    <label for="article-title">Короткое описание</label>
+                    <input type="text" class="form-control" id="article-description">
+                    <label for="article-text">Текст</label>
+                    <textarea class="form-control" id="article-text"></textarea>
+                    <div class="form-check">
+                        <input type="checkbox" id="article-visible" class="form-check-input">
+                        <label for="article-visible">Видимость</label>
+                    </div>
+                    <label for="article-title">Дополнительные параметры</label>
+                    <textarea class="form-control" id="article-ext"></textarea>
+                    <input type="button" class="btn btn-success mt-3" id="article-send" value="Add article">
                 </div>
-                <div class="article-gallery">
-                    <div id="article-gallery">
+                <div id="gallery">
+                    <div class="mt-2 mr-0 row">
+                        <div class="col-2">
+                            <button class="btn btn-info" id="article-gallery-toggle">Gallery</button>
+                        </div>
+                        <form action="#" class="col-10 row mr-0" id="uploadFile" enctype="multipart/form-data">
+                            <div class="col-8">
+                                <input type="file" name="fileData" class="form-control-file">
+                                <input type="hidden" id="file-article-id" name="articleId">
+                            </div>
+                            <div class="col-4">
+                                <input type="Submit" class="btn ml-3 btn-success" value="Загрузить">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="article-gallery">
+                        <div id="article-gallery">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="articleList">
-            <!--<div>-->
-            <table class="table">
-                <thead>
-                <tr>
-                    <th data-memo="Уникальное значение для каждой статьи, с помощью него можно ссылатся на статью">id</th>
-                    <th data-memo="Название статьи" class="w-40">Title</th>
-                    <th data-memo="Короткое описание статьи, не обязательное поле" class="w-40">Description</th>
-                    <th></th>
-                    <th class="w-15"></th>
-                </tr>
-                </thead>
-                <tbody id="articleList-body">
-                </tbody>
-            </table>
-            <div class="ml-1 mt-1 row w-95">
-                <button class="btn btn-success" id="add-article">Добавить статью</button>
-                <button data-memo="Добавить в раздел статью с помощтю ее id. Создается ссылка на статью." class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю</button>
-                <input type="text" class="form-control ml-1 w-10" id="link-id" placeholder="id статьи">
+            <section id="articleList">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th data-memo="Уникальное значение для каждой статьи, с помощью него можно ссылатся на статью">
+                            id
+                        </th>
+                        <th data-memo="Название статьи" class="w-40">Title</th>
+                        <th data-memo="Короткое описание статьи, не обязательное поле" class="w-40">Description</th>
+                        <th></th>
+                        <th class="w-15"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="articleList-body">
+                    </tbody>
+                </table>
+                <div id="article-list-actions" class="ml-1 mt-1 col w-95">
+                    <button class="btn mb-2 btn-success" id="add-article">Добавить статью</button>
+                    <p class="row">
+                        <button data-memo="Добавить в раздел статью с помощтю ее id. Создается ссылка на статью."
+                                class="btn btn-info ml-4" id="add-link">Добавить ссылку на стаьтю
+                        </button>
+                        <input type="text" class="form-control ml-1 w-10" id="link-id" placeholder="id статьи">
+                    </p>
+                    <p class="row">
+                        <button class="btn btn-info ml-4"
+                                data-memo="Добавить в данный раздел содержимое другого разедела. В поле указать имя раздела"
+                                id="add-category-link">Добавить ссылку на раздел
+                        </button>
+                        <input type="text" class="form-control ml-1 w-10" id="category-link" placeholder="раздел">
+                    </p>
+                    <p class="row">
+                        <button class="btn btn-info ml-4" data-memo="Добавить ссылку на внешний ресурс."
+                                id="add-external-link">
+                            Добавить внешнюю ссылку
+                        </button>
+                        <input type="text" class="form-control ml-1 w-10" id="external-link" placeholder="ссылка">
+                    </p>
+                </div>
 
-                <button class="btn btn-info ml-4" data-memo="Добавить в данный раздел содержимое другого разедела. В поле указать имя раздела" id="add-category-link">Добавить ссылку на раздел</button>
-                <input type="text" class="form-control ml-1 w-10" id="category-link" placeholder="раздел">
-            </div>
+            </section>
 
-            <!--</div>-->
-        </section>
-
-        <section id="filesConfigurator">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>File</th>
-                    <th>Article Id</th>
-                    <th>Article</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th class="w-25"></th>
-                </tr>
-                </thead>
-                <tbody id="filesList-body"></tbody>
-            </table>
-        </section>
+            <section id="filesConfigurator">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Article Id</th>
+                        <th>Article</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th class="w-25"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="filesList-body"></tbody>
+                </table>
+            </section>
+        </div>
     </div>
 </div>
 

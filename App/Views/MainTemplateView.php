@@ -1,6 +1,7 @@
 <?php
 
 use App\ViewHelpers\ArticleContentHelper;
+use App\ViewHelpers\ArticleFromCategoryHelper;
 use App\ViewHelpers\FooterHelper;
 use App\ViewHelpers\HeaderMenuHelper;
 
@@ -47,11 +48,9 @@ $keywords['text'] = strip_tags($keywords['text']);
         </div>
         <nav>
             <ul>
-                <li><a href="/">Головна</a></li>
-                <li><a href="/articles/Послуги">Послуги</a></li>
-                <li><a href="/articles/Інформація">Інформація</a></li>
-                <li><a href="/article/34">Фінансова звітність</a></li>
-                <li><a href="/article/9">Контакти</a></li>
+                <?php
+                echo (new HeaderMenuHelper('Головне меню'))->getData();
+                ?>
             </ul>
         </nav>
     </div>

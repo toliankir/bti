@@ -252,6 +252,18 @@ class RequestHandler
         ResponseCreator::responseCreate(200, 'Ok', ['Link to article add' => $_GET['link']]);
     }
 
+    public function addExternalLink()
+    {
+        if (empty($_GET['categoryId'])) {
+            ResponseCreator::responseCreate(200, 'Category id empty');
+        }
+        if (empty($_GET['link'])) {
+            ResponseCreator::responseCreate(200, 'Link is empty');
+        }
+        $this->service->addExternalLink($_GET['categoryId'], $_GET['link']);
+        ResponseCreator::responseCreate(200, 'Ok', ['External link add' => $_GET['link']]);
+    }
+
     public function updateExtProperty()
     {
         if (empty($_GET['articleId'])) {
